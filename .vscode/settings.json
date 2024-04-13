@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "push_button_interface.h": "c",
+        "led_interface.h": "c",
+        "platform_types.h": "c",
+        "bit_math.h": "c"
+    }
+}
