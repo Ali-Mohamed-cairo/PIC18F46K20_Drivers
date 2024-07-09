@@ -123,6 +123,11 @@ typedef union {
 
 #define PORTB_REG (*((volatile PORTB_t *)0xF81))
 
+#define PORTB_INTCON2_REG   (*((volatile uint8 *)0xFF1))
+#define INTOCN2_RBPU_BIT7   7
+
+#define WPUB_REG            (*((volatile uint8 *)0xF7C))
+
 /*********************************PORTC******************************************/
 
 /*TRISC REGISTER : IT'S THE REGISTER RESPONSIBLE FOR DETERMINING PORT DIRECTION*/

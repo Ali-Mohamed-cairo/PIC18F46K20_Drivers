@@ -23,6 +23,9 @@
 /**< Keypad files***/
 #include "KeyPad_Config.h" /*< Before using the driver, please enter this file to put your configurations*/
 
+
+#define _XTAL_FREQ              16000000 //For delay function
+
 /**< Keypad unit*/
 typedef struct{
     Pin_Conig_t KeyPad_Rows_Pins[KEYPAD_ROWS_NUM];

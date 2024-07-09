@@ -4883,7 +4883,7 @@ typedef uint8 Std_ReturnType;
 
 
 # 1 "HAL/LED/../../MCAL/DIO/DIO_Interface.h" 1
-# 22 "HAL/LED/../../MCAL/DIO/DIO_Interface.h"
+# 24 "HAL/LED/../../MCAL/DIO/DIO_Interface.h"
 typedef enum{
     DIO_PIN0 = 0,
     DIO_PIN1,
@@ -4937,12 +4937,23 @@ typedef struct{
 
 
 
+
+
+
 Std_ReturnType MCAL_DIO_SetPinDirection(const Pin_Conig_t *Copy_PinInfo);
 Std_ReturnType MCAL_DIO_GetPinDirection(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_DIRECTION_t *Copy_Direction);
 Std_ReturnType MCAL_DIO_SetPinValue( Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t Copy_PinValue);
 Std_ReturnType MCAL_DIO_ReadPinValue(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t *Copy_PinValue);
 Std_ReturnType MCAL_DIO_TogglePinValue(Pin_Conig_t *Copy_PinInfo);
 Std_ReturnType MCAL_DIO_InitializePinOutput(const Pin_Conig_t *Copy_PinInfo);
+Std_ReturnType MCAL_DIO_PORTBWeakPullUpsInitStatus(uint8 Copy_PORTBPullUpStatus);
+Std_ReturnType MCAL_DIO_PORTBEnablePinPullUp(DIO_PIN_t Copy_PinNum);
+
+
+
+
+
+
 
 Std_ReturnType MCAL_DIO_SetPortDirection(const Port_Conig_t *Copy_PortInfo);
 Std_ReturnType MCAL_DIO_GetPortDirection(const Port_Conig_t *Copy_PortInfo, uint8 *Copy_Direction);
@@ -5176,7 +5187,7 @@ Std_ReturnType HAL_LED_LEDArrayPatternOn(const LEDArray_t *Copy_LEDArray)
     uint8 Local_Pin_Num = Copy_LEDArray->End_Pin;
     for(; Local_Pin_Num >= Copy_LEDArray->Start_Pin; --Local_Pin_Num)
     {
-        Local_LEDStatus = ((Copy_LEDArray->Pattern_Value >> Local_Pin_Num) & 1);
+        Local_LEDStatus = (((Copy_LEDArray->Pattern_Value) >> Local_Pin_Num) & 1);
         Pin_Conig_t LED = {
             .PORT_ID = Copy_LEDArray->PORT_ID,
             .Pin_Num = Local_Pin_Num,
@@ -5227,7 +5238,7 @@ Std_ReturnType HAL_LED_LEDArrayPatternBlink(const LEDArray_t *Copy_LEDArray)
     {
         for(; Local_Pin_Num >= Copy_LEDArray->Start_Pin; --Local_Pin_Num)
         {
-            Local_LEDStatus = ~(((Copy_LEDArray->Pattern_Value >> Local_Pin_Num) & 1));
+            Local_LEDStatus = ~((((Copy_LEDArray->Pattern_Value) >> Local_Pin_Num) & 1));
             Pin_Conig_t LED = {
                 .PORT_ID = Copy_LEDArray->PORT_ID,
                 .Pin_Num = Local_Pin_Num,

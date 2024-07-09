@@ -1,4 +1,4 @@
-# 1 "Device_Config.c"
+# 1 "HAL/KeyPad/KeyPad_Prog.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,90 +6,10 @@
 # 1 "<built-in>" 2
 # 1 "P:/Programs_installed/Microchip/MPLABX/v5.45/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "Device_Config.c" 2
+# 1 "HAL/KeyPad/KeyPad_Prog.c" 2
 
 
 
-
-
-
-
-
-# 1 "./Device_Config.h" 1
-# 11 "./Device_Config.h"
-# 1 "./Platform_Types.h" 1
-# 21 "./Platform_Types.h"
-typedef unsigned char uint8;
-
-typedef signed char sint8;
-
-typedef uint8 Std_ReturnType;
-# 66 "./Platform_Types.h"
-    typedef unsigned int uint16;
-    typedef unsigned long uint32;
-
-    typedef signed int sint16;
-    typedef signed long sint32;
-# 91 "./Platform_Types.h"
-    typedef float float24;
-    typedef double float32;
-# 11 "./Device_Config.h" 2
-# 9 "Device_Config.c" 2
-# 19 "Device_Config.c"
-#pragma config FOSC = HS
-#pragma config FCMEN = OFF
-#pragma config IESO = OFF
-
-
-#pragma config PWRT = OFF
-#pragma config BOREN = OFF
-#pragma config BORV = 18
-
-
-#pragma config WDTEN = OFF
-#pragma config WDTPS = 32768
-
-
-#pragma config CCP2MX = PORTC
-#pragma config PBADEN = OFF
-#pragma config LPT1OSC = OFF
-#pragma config HFOFST = ON
-#pragma config MCLRE = ON
-
-
-#pragma config STVREN = ON
-#pragma config LVP = OFF
-#pragma config XINST = OFF
-
-
-#pragma config CP0 = OFF
-#pragma config CP1 = OFF
-#pragma config CP2 = OFF
-#pragma config CP3 = OFF
-
-
-#pragma config CPB = OFF
-#pragma config CPD = OFF
-
-
-#pragma config WRT0 = OFF
-#pragma config WRT1 = OFF
-#pragma config WRT2 = OFF
-#pragma config WRT3 = OFF
-
-
-#pragma config WRTC = OFF
-#pragma config WRTB = OFF
-#pragma config WRTD = OFF
-
-
-#pragma config EBTR0 = OFF
-#pragma config EBTR1 = OFF
-#pragma config EBTR2 = OFF
-#pragma config EBTR3 = OFF
-
-
-#pragma config EBTRB = OFF
 
 
 
@@ -4935,5 +4855,282 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 33 "P:/Programs_installed/Microchip/MPLABX/v5.45/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\\pic\\include\\xc.h" 2 3
-# 77 "Device_Config.c" 2
+# 9 "HAL/KeyPad/KeyPad_Prog.c" 2
 
+
+
+
+# 1 "HAL/KeyPad/KeyPad_Interface.h" 1
+# 17 "HAL/KeyPad/KeyPad_Interface.h"
+# 1 "HAL/KeyPad/../../BIT_MATH.h" 1
+# 12 "HAL/KeyPad/../../BIT_MATH.h"
+# 1 "./Platform_Types.h" 1
+# 21 "./Platform_Types.h"
+typedef unsigned char uint8;
+
+typedef signed char sint8;
+
+typedef uint8 Std_ReturnType;
+# 66 "./Platform_Types.h"
+    typedef unsigned int uint16;
+    typedef unsigned long uint32;
+
+    typedef signed int sint16;
+    typedef signed long sint32;
+# 91 "./Platform_Types.h"
+    typedef float float24;
+    typedef double float32;
+# 12 "HAL/KeyPad/../../BIT_MATH.h" 2
+# 17 "HAL/KeyPad/KeyPad_Interface.h" 2
+
+
+
+
+# 1 "HAL/KeyPad/../../MCAL/DIO/DIO_Interface.h" 1
+# 24 "HAL/KeyPad/../../MCAL/DIO/DIO_Interface.h"
+typedef enum{
+    DIO_PIN0 = 0,
+    DIO_PIN1,
+    DIO_PIN2,
+    DIO_PIN3,
+    DIO_PIN4,
+    DIO_PIN5,
+    DIO_PIN6,
+    DIO_PIN7
+}DIO_PIN_t;
+
+typedef enum{
+    DIO_PORTA = 0,
+    DIO_PORTB,
+    DIO_PORTC,
+    DIO_PORTD,
+    DIO_PORTE
+}DIO_PORT_t;
+
+typedef enum{
+    DIO_PIN_OUTPUT = 0,
+    DIO_PIN_INPUT
+}DIO_PIN_DIRECTION_t;
+
+typedef enum{
+    DIO_LOW = 0,
+    DIO_HIGH
+}DIO_PIN_VALUE_t;
+
+
+
+
+
+
+
+typedef struct{
+    uint8 PORT_ID : 3;
+    uint8 Pin_Num : 3;
+    uint8 Pin_Direction : 1;
+    uint8 Pin_Value : 1;
+}Pin_Conig_t;
+
+typedef struct{
+    uint8 PORT_ID : 3;
+    uint8 Port_Value;
+    uint8 Port_Direction;
+
+
+
+}Port_Conig_t;
+
+
+
+
+
+
+Std_ReturnType MCAL_DIO_SetPinDirection(const Pin_Conig_t *Copy_PinInfo);
+Std_ReturnType MCAL_DIO_GetPinDirection(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_DIRECTION_t *Copy_Direction);
+Std_ReturnType MCAL_DIO_SetPinValue( Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t Copy_PinValue);
+Std_ReturnType MCAL_DIO_ReadPinValue(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t *Copy_PinValue);
+Std_ReturnType MCAL_DIO_TogglePinValue(Pin_Conig_t *Copy_PinInfo);
+Std_ReturnType MCAL_DIO_InitializePinOutput(const Pin_Conig_t *Copy_PinInfo);
+Std_ReturnType MCAL_DIO_PORTBWeakPullUpsInitStatus(uint8 Copy_PORTBPullUpStatus);
+Std_ReturnType MCAL_DIO_PORTBEnablePinPullUp(DIO_PIN_t Copy_PinNum);
+
+
+
+
+
+
+
+Std_ReturnType MCAL_DIO_SetPortDirection(const Port_Conig_t *Copy_PortInfo);
+Std_ReturnType MCAL_DIO_GetPortDirection(const Port_Conig_t *Copy_PortInfo, uint8 *Copy_Direction);
+Std_ReturnType MCAL_DIO_SetPortValue(Port_Conig_t *Copy_PortInfo, const uint8 Copy_PortValue);
+Std_ReturnType MCAL_DIO_ReadPortValue(const Port_Conig_t *Copy_PortInfo, uint8 *Copy_PortValue);
+Std_ReturnType MCAL_DIO_TogglePortValue(Port_Conig_t *Copy_PortInfo);
+# 21 "HAL/KeyPad/KeyPad_Interface.h" 2
+
+
+
+# 1 "HAL/KeyPad/KeyPad_Config.h" 1
+# 38 "HAL/KeyPad/KeyPad_Config.h"
+static const uint8 Local_KeyPadLayout[0x4][0x4] = {{'1', '2', '3', 'A'},
+                                                              {'4', '5', '6', 'B'},
+                                                              {'7', '8', '9', 'C'},
+                                                              {'*', '0', '#', 'D'}};
+# 24 "HAL/KeyPad/KeyPad_Interface.h" 2
+
+
+
+
+
+
+typedef struct{
+    Pin_Conig_t KeyPad_Rows_Pins[0x4];
+    Pin_Conig_t KeyPad_Cols_Pins[0x4];
+}KeyPad_t;
+
+
+Std_ReturnType HAL_KeyPad_KeyPadInit(KeyPad_t *Copy_KeyPadUnit);
+Std_ReturnType HAL_KeyPad_KeyPadReadCharacter(const KeyPad_t *Copy_KeyPadUnit, uint8 *Copy_PressedBtn);
+Std_ReturnType HAL_KeyPad_KeyPadReadNumber(const KeyPad_t *Copy_KeyPadUnit, uint8 *Copy_PressedNum);
+# 13 "HAL/KeyPad/KeyPad_Prog.c" 2
+
+
+Std_ReturnType HAL_KeyPad_KeyPadInit(KeyPad_t *Copy_KeyPadUnit)
+{
+    Std_ReturnType Local_ErrorState = (Std_ReturnType)0x00;
+    uint8 Local_Counter = 0;
+    for(; Local_Counter < 0x4; ++Local_Counter)
+    {
+        Copy_KeyPadUnit->KeyPad_Rows_Pins[Local_Counter].Pin_Direction = DIO_PIN_OUTPUT;
+        if(!MCAL_DIO_SetPinDirection(&(Copy_KeyPadUnit->KeyPad_Rows_Pins[Local_Counter])))
+        {
+            Local_ErrorState = (Std_ReturnType)0x00;
+            break;
+        }
+        else
+        {
+            Local_ErrorState = (Std_ReturnType)0x01;
+        }
+        if(!MCAL_DIO_SetPinValue(&(Copy_KeyPadUnit->KeyPad_Rows_Pins[Local_Counter]), DIO_LOW))
+        {
+            Local_ErrorState = (Std_ReturnType)0x00;
+            break;
+        }
+        else
+        {
+            Local_ErrorState = (Std_ReturnType)0x01;
+        }
+    }
+    if((Std_ReturnType)0x00 == Local_ErrorState)
+    {
+
+    }
+    else
+    {
+        Local_Counter = 0;
+        for(; Local_Counter < 0x4; ++Local_Counter)
+        {
+            Copy_KeyPadUnit->KeyPad_Cols_Pins[Local_Counter].Pin_Direction = DIO_PIN_INPUT;
+            if(!MCAL_DIO_SetPinDirection(&(Copy_KeyPadUnit->KeyPad_Rows_Pins[Local_Counter])))
+            {
+                Local_ErrorState = (Std_ReturnType)0x00;
+                break;
+            }
+            else
+            {
+                Local_ErrorState = (Std_ReturnType)0x01;
+            }
+        }
+    }
+    return Local_ErrorState;
+}
+Std_ReturnType HAL_KeyPad_KeyPadReadCharacter(const KeyPad_t *Copy_KeyPadUnit, uint8 *Copy_PressedBtn)
+{
+    Std_ReturnType Local_ErrorState = (Std_ReturnType)0x00;
+    uint8 Local_RowsCounter = 0;
+    uint8 Local_ColsCounter = 0;
+    DIO_PIN_VALUE_t Local_ScanColVal = DIO_LOW;
+    for(; Local_RowsCounter < 0x4; ++Local_RowsCounter)
+    {
+        if(!MCAL_DIO_TogglePinValue(&(Copy_KeyPadUnit->KeyPad_Rows_Pins[Local_RowsCounter])))
+        {
+            Local_ErrorState = (Std_ReturnType)0x00;
+            break;
+        }
+        else
+        {
+            Local_ErrorState = (Std_ReturnType)0x01;
+        }
+        for(; Local_ColsCounter < 0x4; ++Local_ColsCounter)
+        {
+           if(!MCAL_DIO_ReadPinValue(&(Copy_KeyPadUnit->KeyPad_Cols_Pins[Local_ColsCounter]), &Local_ScanColVal))
+            {
+                Local_ErrorState = (Std_ReturnType)0x00;
+                break;
+            }
+            else
+            {
+                Local_ErrorState = (Std_ReturnType)0x01;
+                if(!(DIO_LOW) == Local_ScanColVal)
+                {
+                    _delay((unsigned long)((10)*(16000000/4000.0)));
+                    while(!(DIO_LOW) == Local_ScanColVal)
+                    {
+                        MCAL_DIO_ReadPinValue(&(Copy_KeyPadUnit->KeyPad_Cols_Pins[Local_ColsCounter]), &Local_ScanColVal);
+                    }
+                    *Copy_PressedBtn = Local_KeyPadLayout[Local_RowsCounter][Local_ColsCounter];
+                    break;
+                }
+                else
+                {
+
+                }
+            }
+        }
+    }
+    return Local_ErrorState;
+}
+Std_ReturnType HAL_KeyPad_KeyPadReadNumber(const KeyPad_t *Copy_KeyPadUnit, uint8 *Copy_PressedNum)
+{
+    Std_ReturnType Local_ErrorState = (Std_ReturnType)0x00;
+    uint8 Local_RowsCounter = 0;
+    uint8 Local_ColsCounter = 0;
+    DIO_PIN_VALUE_t Local_ScanColVal = DIO_LOW;
+    for(; Local_RowsCounter < 0x4; ++Local_RowsCounter)
+    {
+        if(!MCAL_DIO_TogglePinValue(&(Copy_KeyPadUnit->KeyPad_Rows_Pins[Local_RowsCounter])))
+        {
+            Local_ErrorState = (Std_ReturnType)0x00;
+            break;
+        }
+        else
+        {
+            Local_ErrorState = (Std_ReturnType)0x01;
+        }
+        for(; Local_ColsCounter < 0x4; ++Local_ColsCounter)
+        {
+           if(!(MCAL_DIO_ReadPinValue(&(Copy_KeyPadUnit->KeyPad_Cols_Pins[Local_ColsCounter]), &Local_ScanColVal)))
+            {
+                Local_ErrorState = (Std_ReturnType)0x00;
+                break;
+            }
+            else
+            {
+                Local_ErrorState = (Std_ReturnType)0x01;
+                if(!(DIO_LOW) == Local_ScanColVal)
+                {
+                    _delay((unsigned long)((10)*(16000000/4000.0)));
+                    while(!(DIO_LOW) == Local_ScanColVal)
+                    {
+                        MCAL_DIO_ReadPinValue(&(Copy_KeyPadUnit->KeyPad_Cols_Pins[Local_ColsCounter]), &Local_ScanColVal);
+                    }
+                    *Copy_PressedNum = Local_KeyPadLayout[Local_RowsCounter][Local_ColsCounter] - 48;
+                    break;
+                }
+                else
+                {
+
+                }
+            }
+        }
+    }
+    return Local_ErrorState;
+}

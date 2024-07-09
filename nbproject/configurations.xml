@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="APP" displayName="APP" projectFiles="true">
+        <itemPath>APP/ISRs.h</itemPath>
       </logicalFolder>
       <logicalFolder name="HAL" displayName="HAL" projectFiles="true">
         <logicalFolder name="KeyPad" displayName="KeyPad" projectFiles="true">
@@ -26,12 +27,10 @@
           <itemPath>MCAL/DIO/DIO_Config.h</itemPath>
           <itemPath>MCAL/DIO/DIO_Private.h</itemPath>
         </logicalFolder>
-        <logicalFolder name="EXT_Interrupt"
-                       displayName="EXT_Interrupt"
-                       projectFiles="true">
-          <itemPath>MCAL/EXT_Interrupt/EXT_Interrupt_Interface.h</itemPath>
-          <itemPath>MCAL/EXT_Interrupt/EXT_Interrupt_Config.h</itemPath>
-          <itemPath>MCAL/EXT_Interrupt/EXT_Interrupt_Private.h</itemPath>
+        <logicalFolder name="Interrupt" displayName="Interrupt" projectFiles="true">
+          <itemPath>MCAL/Interrupt/Interrupt_Config.h</itemPath>
+          <itemPath>MCAL/Interrupt/Interrupt_Interface.h</itemPath>
+          <itemPath>MCAL/Interrupt/Interrupt_Private.h</itemPath>
         </logicalFolder>
         <itemPath>Device_Config.h</itemPath>
       </logicalFolder>
@@ -47,6 +46,7 @@
                    projectFiles="true">
       <logicalFolder name="APP" displayName="APP" projectFiles="true">
         <itemPath>main.c</itemPath>
+        <itemPath>APP/ISRs.c</itemPath>
       </logicalFolder>
       <logicalFolder name="HAL" displayName="HAL" projectFiles="true">
         <logicalFolder name="KeyPad" displayName="KeyPad" projectFiles="true">
@@ -63,10 +63,8 @@
         <logicalFolder name="DIO" displayName="DIO" projectFiles="true">
           <itemPath>MCAL/DIO/DIO_Prog.c</itemPath>
         </logicalFolder>
-        <logicalFolder name="EXT_Interrupt"
-                       displayName="EXT_Interrupt"
-                       projectFiles="true">
-          <itemPath>MCAL/EXT_Interrupt/EXT_Interrupt_Prog.c</itemPath>
+        <logicalFolder name="Interrupt" displayName="Interrupt" projectFiles="true">
+          <itemPath>MCAL/Interrupt/Interrupt_Prog.c</itemPath>
         </logicalFolder>
         <itemPath>Device_Config.c</itemPath>
       </logicalFolder>

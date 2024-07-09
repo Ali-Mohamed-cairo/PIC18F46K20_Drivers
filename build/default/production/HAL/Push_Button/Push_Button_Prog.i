@@ -4872,7 +4872,7 @@ typedef uint8 Std_ReturnType;
 # 13 "HAL/Push_Button/Push_Button_Interface.h" 2
 
 # 1 "HAL/Push_Button/../../MCAL/DIO/DIO_Interface.h" 1
-# 22 "HAL/Push_Button/../../MCAL/DIO/DIO_Interface.h"
+# 24 "HAL/Push_Button/../../MCAL/DIO/DIO_Interface.h"
 typedef enum{
     DIO_PIN0 = 0,
     DIO_PIN1,
@@ -4926,12 +4926,23 @@ typedef struct{
 
 
 
+
+
+
 Std_ReturnType MCAL_DIO_SetPinDirection(const Pin_Conig_t *Copy_PinInfo);
 Std_ReturnType MCAL_DIO_GetPinDirection(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_DIRECTION_t *Copy_Direction);
 Std_ReturnType MCAL_DIO_SetPinValue( Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t Copy_PinValue);
 Std_ReturnType MCAL_DIO_ReadPinValue(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t *Copy_PinValue);
 Std_ReturnType MCAL_DIO_TogglePinValue(Pin_Conig_t *Copy_PinInfo);
 Std_ReturnType MCAL_DIO_InitializePinOutput(const Pin_Conig_t *Copy_PinInfo);
+Std_ReturnType MCAL_DIO_PORTBWeakPullUpsInitStatus(uint8 Copy_PORTBPullUpStatus);
+Std_ReturnType MCAL_DIO_PORTBEnablePinPullUp(DIO_PIN_t Copy_PinNum);
+
+
+
+
+
+
 
 Std_ReturnType MCAL_DIO_SetPortDirection(const Port_Conig_t *Copy_PortInfo);
 Std_ReturnType MCAL_DIO_GetPortDirection(const Port_Conig_t *Copy_PortInfo, uint8 *Copy_Direction);

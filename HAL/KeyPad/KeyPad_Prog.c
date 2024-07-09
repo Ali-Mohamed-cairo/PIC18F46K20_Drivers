@@ -8,6 +8,7 @@
 /**< LIB***/
 #include <xc.h>
 
+
 /**< Keypad files*/
 #include "KeyPad_Interface.h"
 
@@ -125,7 +126,7 @@ Std_ReturnType HAL_KeyPad_KeyPadReadNumber(const KeyPad_t *Copy_KeyPadUnit, uint
         }
         for(; Local_ColsCounter < KEYPAD_COLS_NUM; ++Local_ColsCounter)
         {
-           if(!MCAL_DIO_ReadPinValue(&(Copy_KeyPadUnit->KeyPad_Cols_Pins[Local_ColsCounter]), &Local_ScanColVal))
+           if(!(MCAL_DIO_ReadPinValue(&(Copy_KeyPadUnit->KeyPad_Cols_Pins[Local_ColsCounter]), &Local_ScanColVal)))
             {
                 Local_ErrorState = E_NOT_OK;
                 break;

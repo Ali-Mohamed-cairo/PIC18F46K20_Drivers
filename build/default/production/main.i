@@ -4884,7 +4884,7 @@ typedef uint8 Std_ReturnType;
 
 
 # 1 "O:\\Embeded_systems_courses\\AbdAlGhafar_Diploma\\PICDrivers\\MCAL\\DIO\\DIO_Interface.h" 1
-# 22 "O:\\Embeded_systems_courses\\AbdAlGhafar_Diploma\\PICDrivers\\MCAL\\DIO\\DIO_Interface.h"
+# 24 "O:\\Embeded_systems_courses\\AbdAlGhafar_Diploma\\PICDrivers\\MCAL\\DIO\\DIO_Interface.h"
 typedef enum{
     DIO_PIN0 = 0,
     DIO_PIN1,
@@ -4938,12 +4938,23 @@ typedef struct{
 
 
 
+
+
+
 Std_ReturnType MCAL_DIO_SetPinDirection(const Pin_Conig_t *Copy_PinInfo);
 Std_ReturnType MCAL_DIO_GetPinDirection(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_DIRECTION_t *Copy_Direction);
 Std_ReturnType MCAL_DIO_SetPinValue( Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t Copy_PinValue);
 Std_ReturnType MCAL_DIO_ReadPinValue(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t *Copy_PinValue);
 Std_ReturnType MCAL_DIO_TogglePinValue(Pin_Conig_t *Copy_PinInfo);
 Std_ReturnType MCAL_DIO_InitializePinOutput(const Pin_Conig_t *Copy_PinInfo);
+Std_ReturnType MCAL_DIO_PORTBWeakPullUpsInitStatus(uint8 Copy_PORTBPullUpStatus);
+Std_ReturnType MCAL_DIO_PORTBEnablePinPullUp(DIO_PIN_t Copy_PinNum);
+
+
+
+
+
+
 
 Std_ReturnType MCAL_DIO_SetPortDirection(const Port_Conig_t *Copy_PortInfo);
 Std_ReturnType MCAL_DIO_GetPortDirection(const Port_Conig_t *Copy_PortInfo, uint8 *Copy_Direction);
@@ -5076,6 +5087,9 @@ static const uint8 Local_KeyPadLayout[0x4][0x4] = {{'1', '2', '3', 'A'},
 
 
 
+
+
+
 typedef struct{
     Pin_Conig_t KeyPad_Rows_Pins[0x4];
     Pin_Conig_t KeyPad_Cols_Pins[0x4];
@@ -5087,6 +5101,285 @@ Std_ReturnType HAL_KeyPad_KeyPadReadCharacter(const KeyPad_t *Copy_KeyPadUnit, u
 Std_ReturnType HAL_KeyPad_KeyPadReadNumber(const KeyPad_t *Copy_KeyPadUnit, uint8 *Copy_PressedNum);
 # 18 "main.c" 2
 
+# 1 "./MCAL/Interrupt/Interrupt_Interface.h" 1
+# 14 "./MCAL/Interrupt/Interrupt_Interface.h"
+# 1 "./MCAL/Interrupt/Interrupt_Config.h" 1
+# 11 "./MCAL/Interrupt/Interrupt_Config.h"
+# 1 "./MCAL/Interrupt/Interrupt_Private.h" 1
+# 13 "./MCAL/Interrupt/Interrupt_Private.h"
+# 1 "./MCAL/Interrupt/Interrupt_Config.h" 1
+# 13 "./MCAL/Interrupt/Interrupt_Private.h" 2
+
+
+
+
+
+    typedef union{
+        struct{
+            uint8 RBIF_BIT0 : 1;
+            uint8 INT0IF_BIT1 : 1;
+            uint8 TMR0IF_BIT2 : 1;
+            uint8 RBIE_BIT3 : 1;
+            uint8 INT0IE_BIT4 : 1;
+            uint8 TMR0IE_BIT5 : 1;
+            uint8 PEIE_BIT6 : 1;
+            uint8 GIE_BIT7 : 1;
+        };
+        uint8 INTCON_Register;
+    }INTCON_REG_t;
+# 49 "./MCAL/Interrupt/Interrupt_Private.h"
+typedef union{
+    struct{
+        uint8 RBIP_BIT0 : 1;
+        uint8 RESERVED_BIT1 : 1;
+        uint8 TMR0IP_BIT2 : 1;
+        uint8 RESERVED_BIT3 : 1;
+        uint8 INTEDG2_BIT4 : 1;
+        uint8 INTEDG1_BIT5 : 1;
+        uint8 INTEDG0_BIT6 : 1;
+        uint8 RBPU_BIT7 : 1;
+    };
+    uint8 INTCON2_Register;
+}INTCON2_REG_t;
+
+
+
+typedef union{
+    struct{
+        uint8 INT1IF_BIT0 : 1;
+        uint8 INT2IF_BIT1 : 1;
+        uint8 RESERVED_BIT2 : 1;
+        uint8 INT1IE_BIT3 : 1;
+        uint8 INT2IE_BIT4 : 1;
+        uint8 RESERVED_BIT5 : 1;
+        uint8 INT1IP_BIT6 : 1;
+        uint8 INT2IP_BIT7 : 1;
+    };
+    uint8 INTCON3_Register;
+}INTCON3_REG_t;
+
+
+
+typedef union{
+    struct{
+        uint8 TMR1IF_BIT0 : 1;
+        uint8 TMR2IF_BIT1 : 1;
+        uint8 CCP1IF_BIT2 : 1;
+        uint8 SSPIF_BIT3 : 1;
+        uint8 TXIF_BIT4 : 1;
+        uint8 RCIF_BIT5 : 1;
+        uint8 ADIF_BIT6 : 1;
+        uint8 PSPIF_BIT7 : 1;
+    };
+    uint8 PIR1_Register;
+}PIR1_REG_t;
+
+
+
+typedef union{
+    struct{
+        uint8 CCP2IF_BIT0 : 1;
+        uint8 TMR3IF_BIT1 : 1;
+        uint8 HLVDIF_BIT2 : 1;
+        uint8 BCLIF_BIT3 : 1;
+        uint8 EEIF_BIT4 : 1;
+        uint8 C2IF_BIT5 : 1;
+        uint8 C1IF_BIT6 : 1;
+        uint8 OSCFIF_BIT7 : 1;
+    };
+    uint8 PIR2_Register;
+}PIR2_REG_t;
+
+
+
+
+typedef union{
+    struct{
+        uint8 TMR1IE_BIT0 : 1;
+        uint8 TMR2IE_BIT1 : 1;
+        uint8 CCP1IE_BIT2 : 1;
+        uint8 SSPIE_BIT3 : 1;
+        uint8 TXIE_BIT4 : 1;
+        uint8 RCIE_BIT5 : 1;
+        uint8 ADIE_BIT6 : 1;
+        uint8 PSPIE_BIT7 : 1;
+    };
+    uint8 PIE1_Register;
+}PIE1_REG_t;
+
+
+
+
+typedef union{
+    struct{
+        uint8 CCP2IE_BIT0 : 1;
+        uint8 TMR3IE_BIT1 : 1;
+        uint8 HLVDIE_BIT2 : 1;
+        uint8 BCLIE_BIT3 : 1;
+        uint8 EEIE_BIT4 : 1;
+        uint8 C2IE_BIT5 : 1;
+        uint8 C1IE_BIT6 : 1;
+        uint8 OSCFIE_BIT7 : 1;
+    };
+    uint8 PIE2_Register;
+}PIE2_REG_t;
+
+
+
+
+typedef union{
+    struct{
+        uint8 TMR1IP_BIT0 : 1;
+        uint8 TMR2IP_BIT1 : 1;
+        uint8 CCP1IP_BIT2 : 1;
+        uint8 SSPIP_BIT3 : 1;
+        uint8 TXIP_BIT4 : 1;
+        uint8 RCIP_BIT5 : 1;
+        uint8 ADIP_BIT6 : 1;
+        uint8 PSPIP_BIT7 : 1;
+    };
+    uint8 IPR1_Register;
+}IPR1_REG_t;
+
+
+typedef union{
+    struct{
+        uint8 CCP2IP_BIT0 : 1;
+        uint8 TMR3IP_BIT1 : 1;
+        uint8 HLVDIP_BIT2 : 1;
+        uint8 BCLIP_BIT3 : 1;
+        uint8 EEIP_BIT4 : 1;
+        uint8 C2IP_BIT5 : 1;
+        uint8 C1IP_BIT6 : 1;
+        uint8 OSCFIP_BIT7 : 1;
+    };
+    uint8 IPR2_Register;
+}IPR2_REG_t;
+
+
+
+typedef union{
+    struct{
+            uint8 BOR_BIT0 : 1;
+            uint8 POR_BIT1 : 1;
+            uint8 PD_BIT2 : 1;
+            uint8 TO_BIT3 : 1;
+            uint8 RI_BIT4 : 1;
+            uint8 RESERVED_BIT5 : 1;
+            uint8 SBOREN_BIT6 : 1;
+            uint8 IPEN_BIT7 : 1;
+    };
+    uint8 RCON_Register;
+}RCON_REG_t;
+# 11 "./MCAL/Interrupt/Interrupt_Config.h" 2
+# 14 "./MCAL/Interrupt/Interrupt_Interface.h" 2
+# 24 "./MCAL/Interrupt/Interrupt_Interface.h"
+typedef enum{
+    EXTINT0= 0,
+    EXTINT1,
+    EXTINT2
+}EXINT_t;
+
+typedef enum{
+    FALLING_EDGE = 0,
+    RISING_EDGE
+}EXTINT_EDGESELECT_t;
+
+typedef struct{
+    EXINT_t INTNum;
+    uint8 TriggerEdge;
+    uint8 PriorityLevel;
+}EXTINT_Config_t;
+
+
+
+
+typedef enum{
+    IOC_RB4 = 4,
+    IOC_RB5,
+    IOC_RB6,
+    IOC_RB7
+}IOCB_t;
+
+typedef struct{
+    IOCB_t IOCBNum;
+    uint8 PullUp_Status;
+    uint8 PriorityLevel;
+}IOCB_Config_t;
+# 124 "./MCAL/Interrupt/Interrupt_Interface.h"
+Std_ReturnType MCAL_Interrupt_GlobalIntEnable();
+
+
+
+
+
+
+
+Std_ReturnType MCAL_Interrupt_EXTIntStatus(const EXTINT_Config_t Copy_EXTInt, const uint8 Copy_EXTIntStatus);
+Std_ReturnType MCAL_Interrupt_SetEXTIntPriority(const EXTINT_Config_t Copy_EXTInt);
+Std_ReturnType MCAL_Interrupt_ReadEXTIntFlag(const EXTINT_Config_t Copy_EXTInt, uint8 *Copy_FlagValue);
+Std_ReturnType MCAL_Interrupt_ClearEXTIntFlag(const EXTINT_Config_t Copy_EXTInt);
+
+Std_ReturnType MCAL_Interrupt_SetEXTINT0CallBack(void (*Copy_CallBackPtr)(void));
+Std_ReturnType MCAL_Interrupt_SetEXTINT1CallBack(void (*Copy_CallBackPtr)(void));
+Std_ReturnType MCAL_Interrupt_SetEXTINT2CallBack(void (*Copy_CallBackPtr)(void));
+# 151 "./MCAL/Interrupt/Interrupt_Interface.h"
+Std_ReturnType MCAL_Interrupt_IOCBInit();
+Std_ReturnType MCAL_Interrupt_IOCBPinStatus(const IOCB_Config_t Copy_IOCBInt, const uint8 Copy_IOCBIntStatus);
+Std_ReturnType MCAL_Interrupt_SetIOCBIntPriority(const IOCB_Config_t Copy_IOCBInt);
+Std_ReturnType MCAL_Interrupt_ReadIOCBIntFlag(uint8 *Copy_FlagValue);
+Std_ReturnType MCAL_Interrupt_ClearIOCBIntFlag();
+
+Std_ReturnType MCAL_Interrrupt_SetIOCBCallBack(void (*Copy_CallBack)(void));
+
+
+Std_ReturnType MCAL_Interrupt_IntState(uint8 Copy_INT, const uint8 Copy_INTState);
+Std_ReturnType MCAL_Interrupt_SetIntPriority(uint8 Copy_INT, const uint8 Copy_INTPriority);
+Std_ReturnType MCAL_Interrupt_ReadIntFlag(uint8 Copy_INT, uint8 *Copy_FlagValue);
+Std_ReturnType MCAL_Interrupt_ClearIntFlag(uint8 Copy_INT);
+
+Std_ReturnType MCAL_Interrupt_SetCallBack_TMR0(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_TMR1(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_TMR2(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_CCP1(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_SSP(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_TX(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_RC(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_AD(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_PSP(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_CCP2(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_TMR3(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_HLVD(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_BCL(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_EE(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_C2(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_C1(void (*Copy_CallBack)(void));
+Std_ReturnType MCAL_Interrupt_SetCallBack_OSCF(void (*Copy_CallBack)(void));
+# 19 "main.c" 2
+
+# 1 "./APP/ISRs.h" 1
+# 11 "./APP/ISRs.h"
+void EXTINT0_ISR();
+void EXTINT1_ISR();
+void EXTINT2_ISR();
+void IOCB_ISR();
+void TMR0_ISR();
+void TMR1_ISR();
+void TMR2_ISR();
+void CCP1_ISR();
+void SSP_ISR();
+void TX_ISR();
+void RC_ISR();
+void PSP_ISR();
+void CCP2_ISR();
+void TMR3_ISR();
+void HLVD_ISR();
+void BCL_ISR();
+void EE_ISR();
+void C2_ISR();
+void C1_ISR();
+void OSCF_ISR();
+# 20 "main.c" 2
 
 
 KeyPad_t key = {
@@ -5139,7 +5432,7 @@ int main()
 {
     HAL_LED_LEDConfig(&led1);
     HAL_Push_Button_BtnConfig(&Btn);
-# 82 "main.c"
+# 83 "main.c"
     while(1)
     {
         HAL_Push_Button_ReadBtn(&Btn, &Global_BtnRead);
@@ -5147,7 +5440,7 @@ int main()
         {
             HAL_LED_LEDBlink(&led1);
         }
-# 123 "main.c"
+# 124 "main.c"
     }
 
     return 0;

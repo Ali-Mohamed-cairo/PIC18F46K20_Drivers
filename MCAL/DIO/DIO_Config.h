@@ -14,6 +14,11 @@
 #define PORT_PIN_APIs_CONFIG          0x03
 
 #define APIs_CONFIG                   PORT_PIN_APIs_CONFIG
+/*Configure the avaliable APIs for usage.
+ * Options are: 1- PIN_APIs_CONFIG
+ *              2- PORT_APIs_CONFIG
+ *              3- PORT_PIN_APIs_CONFIG
+ */
 
 #endif	/* DIO_CONFIG_H */
 

@@ -16,6 +16,8 @@
 #define OUTPUT_PORT             0x00
 #define PORT_HIGH               0xFF
 #define PORT_LOW                0x00
+#define PORTB_DISABLE_PULL_UP   0
+#define PORTB_ENABLE_PULL_UP    1
 
 /*********************************REQUIRED ENUMS*******************************/
 
@@ -66,11 +68,14 @@ typedef struct{
     uint8 Port_Value;
     uint8 Port_Direction;
     /*From options : "INPUT_PORT" or "OUTPUT_PORT" or any char value where 0 bit 
-     * corrospounds to input pin  while 1 bit corrospounds to output pin
+     * corresponds to input pin  while 1 bit corresponds to output pin
      */
 }Port_Conig_t;
 
-/***********************************APIs***************************************/
+
+/***********************************Pins APIs***************************************/
+
+#if(APIs_CONFIG == PIN_APIs_CONFIG || APIs_CONFIG == PORT_PIN_APIs_CONFIG)
 
 Std_ReturnType MCAL_DIO_SetPinDirection(const Pin_Conig_t *Copy_PinInfo);
 Std_ReturnType MCAL_DIO_GetPinDirection(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_DIRECTION_t *Copy_Direction);
@@ -78,12 +83,22 @@ Std_ReturnType MCAL_DIO_SetPinValue( Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t 
 Std_ReturnType MCAL_DIO_ReadPinValue(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t *Copy_PinValue);
 Std_ReturnType MCAL_DIO_TogglePinValue(Pin_Conig_t *Copy_PinInfo);
 Std_ReturnType MCAL_DIO_InitializePinOutput(const Pin_Conig_t *Copy_PinInfo);
+Std_ReturnType MCAL_DIO_PORTBWeakPullUpsInitStatus(uint8 Copy_PORTBPullUpStatus);
+Std_ReturnType MCAL_DIO_PORTBEnablePinPullUp(DIO_PIN_t Copy_PinNum);
+
+#endif /*APIs_CONFIG*/
+
+/***********************************PORTs APIs***************************************/
+
+#if(APIs_CONFIG == PORT_APIs_CONFIG || APIs_CONFIG == PORT_PIN_APIs_CONFIG)
 
 Std_ReturnType MCAL_DIO_SetPortDirection(const Port_Conig_t *Copy_PortInfo);
 Std_ReturnType MCAL_DIO_GetPortDirection(const Port_Conig_t *Copy_PortInfo, uint8 *Copy_Direction);
 Std_ReturnType MCAL_DIO_SetPortValue(Port_Conig_t *Copy_PortInfo, const uint8 Copy_PortValue);
 Std_ReturnType MCAL_DIO_ReadPortValue(const Port_Conig_t *Copy_PortInfo, uint8 *Copy_PortValue);
 Std_ReturnType MCAL_DIO_TogglePortValue(Port_Conig_t *Copy_PortInfo);
+
+#endif/*APIs_CONFIG*/
 
 #endif	/* DIO_INTERFACE_H */
 

@@ -1,71 +1,71 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"20 Device_Config.c
+"19 Device_Config.c
 [p x FOSC  =  HS         ]
-"21
+"20
 [p x FCMEN  =  OFF       ]
-"22
+"21
 [p x IESO  =  OFF        ]
-"25
+"24
 [p x PWRT  =  OFF        ]
-"26
+"25
 [p x BOREN  =  OFF       ]
-"27
+"26
 [p x BORV  =  18         ]
-"30
+"29
 [p x WDTEN  =  OFF       ]
-"31
+"30
 [p x WDTPS  =  32768     ]
-"34
+"33
 [p x CCP2MX  =  PORTC    ]
-"35
+"34
 [p x PBADEN  =  OFF      ]
-"36
+"35
 [p x LPT1OSC  =  OFF     ]
-"37
+"36
 [p x HFOFST  =  ON       ]
-"38
+"37
 [p x MCLRE  =  ON        ]
-"41
+"40
 [p x STVREN  =  ON       ]
-"42
+"41
 [p x LVP  =  OFF         ]
-"43
+"42
 [p x XINST  =  OFF       ]
-"46
+"45
 [p x CP0  =  OFF         ]
-"47
+"46
 [p x CP1  =  OFF         ]
-"48
+"47
 [p x CP2  =  OFF         ]
-"49
+"48
 [p x CP3  =  OFF         ]
-"52
+"51
 [p x CPB  =  OFF         ]
-"53
+"52
 [p x CPD  =  OFF         ]
-"56
+"55
 [p x WRT0  =  OFF        ]
-"57
+"56
 [p x WRT1  =  OFF        ]
-"58
+"57
 [p x WRT2  =  OFF        ]
-"59
+"58
 [p x WRT3  =  OFF        ]
-"62
+"61
 [p x WRTC  =  OFF        ]
-"63
+"62
 [p x WRTB  =  OFF        ]
-"64
+"63
 [p x WRTD  =  OFF        ]
-"67
+"66
 [p x EBTR0  =  OFF       ]
-"68
+"67
 [p x EBTR1  =  OFF       ]
-"69
+"68
 [p x EBTR2  =  OFF       ]
-"70
+"69
 [p x EBTR3  =  OFF       ]
-"73
+"72
 [p x EBTRB  =  OFF       ]
 "54 P:/Programs_installed/Microchip/MPLABX/v5.45/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k20.h
 [; ;P:/Programs_installed/Microchip/MPLABX/v5.45/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k20.h: 54: __asm("SSPMSK equ 0F77h");

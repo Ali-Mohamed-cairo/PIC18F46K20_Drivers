@@ -139,13 +139,7 @@ typedef union {
     };
     uint8 PORTB_REGISTER;
 }PORTB_t;
-
-
-
-
-
-
-
+# 135 "MCAL/DIO/DIO_Private.h"
 typedef union {
     struct{
         uint8 TRISC_BIT0 : 1;
@@ -311,7 +305,7 @@ typedef union {
 # 10 "MCAL/DIO/DIO_Prog.c" 2
 
 # 1 "MCAL/DIO/DIO_Interface.h" 1
-# 22 "MCAL/DIO/DIO_Interface.h"
+# 24 "MCAL/DIO/DIO_Interface.h"
 typedef enum{
     DIO_PIN0 = 0,
     DIO_PIN1,
@@ -365,12 +359,23 @@ typedef struct{
 
 
 
+
+
+
 Std_ReturnType MCAL_DIO_SetPinDirection(const Pin_Conig_t *Copy_PinInfo);
 Std_ReturnType MCAL_DIO_GetPinDirection(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_DIRECTION_t *Copy_Direction);
 Std_ReturnType MCAL_DIO_SetPinValue( Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t Copy_PinValue);
 Std_ReturnType MCAL_DIO_ReadPinValue(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t *Copy_PinValue);
 Std_ReturnType MCAL_DIO_TogglePinValue(Pin_Conig_t *Copy_PinInfo);
 Std_ReturnType MCAL_DIO_InitializePinOutput(const Pin_Conig_t *Copy_PinInfo);
+Std_ReturnType MCAL_DIO_PORTBWeakPullUpsInitStatus(uint8 Copy_PORTBPullUpStatus);
+Std_ReturnType MCAL_DIO_PORTBEnablePinPullUp(DIO_PIN_t Copy_PinNum);
+
+
+
+
+
+
 
 Std_ReturnType MCAL_DIO_SetPortDirection(const Port_Conig_t *Copy_PortInfo);
 Std_ReturnType MCAL_DIO_GetPortDirection(const Port_Conig_t *Copy_PortInfo, uint8 *Copy_Direction);
@@ -399,10 +404,10 @@ Std_ReturnType MCAL_DIO_SetPinDirection(const Pin_Conig_t *Copy_PinInfo)
                 switch(Copy_PinInfo->Pin_Direction)
                 {
                     case DIO_PIN_INPUT:
-                        ((*((volatile TRISA_t *)0xF92)).TRISA_REGISTER |= (1 << Copy_PinInfo->Pin_Num));
+                        (((*((volatile TRISA_t *)0xF92)).TRISA_REGISTER) |= (1 << Copy_PinInfo->Pin_Num));
                         break;
                     case DIO_PIN_OUTPUT:
-                        ((*((volatile TRISA_t *)0xF92)).TRISA_REGISTER &= (~(1 << Copy_PinInfo->Pin_Num)));
+                        (((*((volatile TRISA_t *)0xF92)).TRISA_REGISTER) &= (~(1 << Copy_PinInfo->Pin_Num)));
                         break;
                     default:
                         Local_ErrorStatus = (Std_ReturnType)0x00;
@@ -414,10 +419,10 @@ Std_ReturnType MCAL_DIO_SetPinDirection(const Pin_Conig_t *Copy_PinInfo)
                 switch(Copy_PinInfo->Pin_Direction)
                 {
                     case DIO_PIN_INPUT:
-                        ((*((volatile TRISB_t *)0xF93)).TRISB_REGISTER |= (1 << Copy_PinInfo->Pin_Num));
+                        (((*((volatile TRISB_t *)0xF93)).TRISB_REGISTER) |= (1 << Copy_PinInfo->Pin_Num));
                         break;
                     case DIO_PIN_OUTPUT:
-                        ((*((volatile TRISB_t *)0xF93)).TRISB_REGISTER &= (~(1 << Copy_PinInfo->Pin_Num)));
+                        (((*((volatile TRISB_t *)0xF93)).TRISB_REGISTER) &= (~(1 << Copy_PinInfo->Pin_Num)));
                         break;
                     default:
                         Local_ErrorStatus = (Std_ReturnType)0x00;
@@ -429,10 +434,10 @@ Std_ReturnType MCAL_DIO_SetPinDirection(const Pin_Conig_t *Copy_PinInfo)
                 switch(Copy_PinInfo->Pin_Direction)
                 {
                     case DIO_PIN_INPUT:
-                        ((*((volatile TRISC_t *)0xF94)).TRISC_REGISTER |= (1 << Copy_PinInfo->Pin_Num));
+                        (((*((volatile TRISC_t *)0xF94)).TRISC_REGISTER) |= (1 << Copy_PinInfo->Pin_Num));
                         break;
                     case DIO_PIN_OUTPUT:
-                        ((*((volatile TRISC_t *)0xF94)).TRISC_REGISTER &= (~(1 << Copy_PinInfo->Pin_Num)));
+                        (((*((volatile TRISC_t *)0xF94)).TRISC_REGISTER) &= (~(1 << Copy_PinInfo->Pin_Num)));
                         break;
                     default:
                         Local_ErrorStatus = (Std_ReturnType)0x00;
@@ -444,10 +449,10 @@ Std_ReturnType MCAL_DIO_SetPinDirection(const Pin_Conig_t *Copy_PinInfo)
                 switch(Copy_PinInfo->Pin_Direction)
                 {
                     case DIO_PIN_INPUT:
-                        ((*((volatile TRISD_t *)0xF95)).TRISD_REGISTER |= (1 << Copy_PinInfo->Pin_Num));
+                        (((*((volatile TRISD_t *)0xF95)).TRISD_REGISTER) |= (1 << Copy_PinInfo->Pin_Num));
                         break;
                     case DIO_PIN_OUTPUT:
-                        ((*((volatile TRISD_t *)0xF95)).TRISD_REGISTER &= (~(1 << Copy_PinInfo->Pin_Num)));
+                        (((*((volatile TRISD_t *)0xF95)).TRISD_REGISTER) &= (~(1 << Copy_PinInfo->Pin_Num)));
                         break;
                     default:
                         Local_ErrorStatus = (Std_ReturnType)0x00;
@@ -464,10 +469,10 @@ Std_ReturnType MCAL_DIO_SetPinDirection(const Pin_Conig_t *Copy_PinInfo)
                 switch(Copy_PinInfo->Pin_Direction)
                 {
                     case DIO_PIN_INPUT:
-                        ((*((volatile TRISE_t *)0xF96)).TRISE_REGISTER |= (1 << Copy_PinInfo->Pin_Num));
+                        (((*((volatile TRISE_t *)0xF96)).TRISE_REGISTER) |= (1 << Copy_PinInfo->Pin_Num));
                         break;
                     case DIO_PIN_OUTPUT:
-                        ((*((volatile TRISE_t *)0xF96)).TRISE_REGISTER &= (~(1 << Copy_PinInfo->Pin_Num)));
+                        (((*((volatile TRISE_t *)0xF96)).TRISE_REGISTER) &= (~(1 << Copy_PinInfo->Pin_Num)));
                         break;
                     default:
                         Local_ErrorStatus = (Std_ReturnType)0x00;
@@ -495,7 +500,7 @@ Std_ReturnType MCAL_DIO_GetPinDirection(const Pin_Conig_t *Copy_PinInfo, DIO_PIN
          switch(Copy_PinInfo->PORT_ID)
         {
             case DIO_PORTA:
-                Local_PinDirection = (((*((volatile TRISA_t *)0xF92)).TRISA_REGISTER >> Copy_PinInfo->Pin_Num) & 1);
+                Local_PinDirection = ((((*((volatile TRISA_t *)0xF92)).TRISA_REGISTER) >> Copy_PinInfo->Pin_Num) & 1);
                 if(Local_PinDirection == DIO_PIN_INPUT || Local_PinDirection == DIO_PIN_OUTPUT)
                 {
                     *Copy_Direction = Local_PinDirection;
@@ -507,7 +512,7 @@ Std_ReturnType MCAL_DIO_GetPinDirection(const Pin_Conig_t *Copy_PinInfo, DIO_PIN
                 }
                 break;
             case DIO_PORTB:
-                Local_PinDirection = (((*((volatile TRISB_t *)0xF93)).TRISB_REGISTER >> Copy_PinInfo->Pin_Num) & 1);
+                Local_PinDirection = ((((*((volatile TRISB_t *)0xF93)).TRISB_REGISTER) >> Copy_PinInfo->Pin_Num) & 1);
                 if(Local_PinDirection == DIO_PIN_INPUT || Local_PinDirection == DIO_PIN_OUTPUT)
                 {
                     *Copy_Direction = Local_PinDirection;
@@ -519,7 +524,7 @@ Std_ReturnType MCAL_DIO_GetPinDirection(const Pin_Conig_t *Copy_PinInfo, DIO_PIN
                 }
                 break;
             case DIO_PORTC:
-                Local_PinDirection = (((*((volatile TRISC_t *)0xF94)).TRISC_REGISTER >> Copy_PinInfo->Pin_Num) & 1);
+                Local_PinDirection = ((((*((volatile TRISC_t *)0xF94)).TRISC_REGISTER) >> Copy_PinInfo->Pin_Num) & 1);
                 if(Local_PinDirection == DIO_PIN_INPUT || Local_PinDirection == DIO_PIN_OUTPUT)
                 {
                     *Copy_Direction = Local_PinDirection;
@@ -531,7 +536,7 @@ Std_ReturnType MCAL_DIO_GetPinDirection(const Pin_Conig_t *Copy_PinInfo, DIO_PIN
                 }
                 break;
             case DIO_PORTD:
-                Local_PinDirection = (((*((volatile TRISD_t *)0xF95)).TRISD_REGISTER >> Copy_PinInfo->Pin_Num) & 1);
+                Local_PinDirection = ((((*((volatile TRISD_t *)0xF95)).TRISD_REGISTER) >> Copy_PinInfo->Pin_Num) & 1);
                 if(Local_PinDirection == DIO_PIN_INPUT || Local_PinDirection == DIO_PIN_OUTPUT)
                 {
                     *Copy_Direction = Local_PinDirection;
@@ -548,7 +553,7 @@ Std_ReturnType MCAL_DIO_GetPinDirection(const Pin_Conig_t *Copy_PinInfo, DIO_PIN
                     Local_ErrorStatus = (Std_ReturnType)0x00;
                     break;
                 }
-                Local_PinDirection = (((*((volatile TRISE_t *)0xF96)).TRISE_REGISTER >> Copy_PinInfo->Pin_Num) & 1);
+                Local_PinDirection = ((((*((volatile TRISE_t *)0xF96)).TRISE_REGISTER) >> Copy_PinInfo->Pin_Num) & 1);
                 if(Local_PinDirection == DIO_PIN_INPUT || Local_PinDirection == DIO_PIN_OUTPUT)
                 {
                     *Copy_Direction = Local_PinDirection;
@@ -582,11 +587,11 @@ Std_ReturnType MCAL_DIO_SetPinValue(Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t C
                 switch(Copy_PinValue)
                 {
                     case DIO_HIGH:
-                        ((*((volatile LATA_t *)0xF89)).LATA_REGISTER |= (1 << Copy_PinInfo->Pin_Num));
+                        (((*((volatile LATA_t *)0xF89)).LATA_REGISTER) |= (1 << Copy_PinInfo->Pin_Num));
                         Copy_PinInfo->Pin_Value = Copy_PinValue;
                         break;
                     case DIO_LOW:
-                        ((*((volatile LATA_t *)0xF89)).LATA_REGISTER &= (~(1 << Copy_PinInfo->Pin_Num)));
+                        (((*((volatile LATA_t *)0xF89)).LATA_REGISTER) &= (~(1 << Copy_PinInfo->Pin_Num)));
                         Copy_PinInfo->Pin_Value = Copy_PinValue;
                         break;
                     default:
@@ -599,11 +604,11 @@ Std_ReturnType MCAL_DIO_SetPinValue(Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t C
                 switch(Copy_PinValue)
                 {
                     case DIO_HIGH:
-                        ((*((volatile LATB_t *)0xF8A)).LATB_REGISTER |= (1 << Copy_PinInfo->Pin_Num));
+                        (((*((volatile LATB_t *)0xF8A)).LATB_REGISTER) |= (1 << Copy_PinInfo->Pin_Num));
                         Copy_PinInfo->Pin_Value = Copy_PinValue;
                         break;
                     case DIO_LOW:
-                        ((*((volatile LATB_t *)0xF8A)).LATB_REGISTER &= (~(1 << Copy_PinInfo->Pin_Num)));
+                        (((*((volatile LATB_t *)0xF8A)).LATB_REGISTER) &= (~(1 << Copy_PinInfo->Pin_Num)));
                         Copy_PinInfo->Pin_Value = Copy_PinValue;
                         break;
                     default:
@@ -616,11 +621,11 @@ Std_ReturnType MCAL_DIO_SetPinValue(Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t C
                 switch(Copy_PinValue)
                 {
                     case DIO_HIGH:
-                        ((*((volatile LATC_t *)0xF8B)).LATC_REGISTER |= (1 << Copy_PinInfo->Pin_Num));
+                        (((*((volatile LATC_t *)0xF8B)).LATC_REGISTER) |= (1 << Copy_PinInfo->Pin_Num));
                         Copy_PinInfo->Pin_Value = Copy_PinValue;
                         break;
                     case DIO_LOW:
-                        ((*((volatile LATC_t *)0xF8B)).LATC_REGISTER &= (~(1 << Copy_PinInfo->Pin_Num)));
+                        (((*((volatile LATC_t *)0xF8B)).LATC_REGISTER) &= (~(1 << Copy_PinInfo->Pin_Num)));
                         Copy_PinInfo->Pin_Value = Copy_PinValue;
                         break;
                     default:
@@ -633,11 +638,11 @@ Std_ReturnType MCAL_DIO_SetPinValue(Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t C
                 switch(Copy_PinValue)
                 {
                     case DIO_HIGH:
-                        ((*((volatile LATD_t *)0xF8C)).LATD_REGISTER |= (1 << Copy_PinInfo->Pin_Num));
+                        (((*((volatile LATD_t *)0xF8C)).LATD_REGISTER) |= (1 << Copy_PinInfo->Pin_Num));
                         Copy_PinInfo->Pin_Value = Copy_PinValue;
                         break;
                     case DIO_LOW:
-                        ((*((volatile LATD_t *)0xF8C)).LATD_REGISTER &= (~(1 << Copy_PinInfo->Pin_Num)));
+                        (((*((volatile LATD_t *)0xF8C)).LATD_REGISTER) &= (~(1 << Copy_PinInfo->Pin_Num)));
                         Copy_PinInfo->Pin_Value = Copy_PinValue;
                         break;
                     default:
@@ -655,11 +660,11 @@ Std_ReturnType MCAL_DIO_SetPinValue(Pin_Conig_t *Copy_PinInfo, DIO_PIN_VALUE_t C
                 switch(Copy_PinValue)
                 {
                     case DIO_HIGH:
-                        ((*((volatile LATE_t *)0xF8D)).LATE_REGISTER |= (1 << Copy_PinInfo->Pin_Num));
+                        (((*((volatile LATE_t *)0xF8D)).LATE_REGISTER) |= (1 << Copy_PinInfo->Pin_Num));
                         Copy_PinInfo->Pin_Value = Copy_PinValue;
                         break;
                     case DIO_LOW:
-                        ((*((volatile LATE_t *)0xF8D)).LATE_REGISTER &= (~(1 << Copy_PinInfo->Pin_Num)));
+                        (((*((volatile LATE_t *)0xF8D)).LATE_REGISTER) &= (~(1 << Copy_PinInfo->Pin_Num)));
                         Copy_PinInfo->Pin_Value = Copy_PinValue;
                         break;
                     default:
@@ -687,7 +692,7 @@ Std_ReturnType MCAL_DIO_ReadPinValue(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_VA
         switch(Copy_PinInfo->PORT_ID)
         {
             case DIO_PORTA:
-                Local_PinValue = (((*((volatile PORTA_t *)0xF80)).PORTA_REGISTER >> Copy_PinInfo->Pin_Num) & 1);
+                Local_PinValue = ((((*((volatile PORTA_t *)0xF80)).PORTA_REGISTER) >> Copy_PinInfo->Pin_Num) & 1);
                 if(Local_PinValue == DIO_HIGH || Local_PinValue == DIO_LOW)
                 {
                     *Copy_PinValue = Local_PinValue;
@@ -699,7 +704,7 @@ Std_ReturnType MCAL_DIO_ReadPinValue(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_VA
                 }
                 break;
             case DIO_PORTB:
-                Local_PinValue = (((*((volatile PORTB_t *)0xF81)).PORTB_REGISTER >> Copy_PinInfo->Pin_Num) & 1);
+                Local_PinValue = ((((*((volatile PORTB_t *)0xF81)).PORTB_REGISTER) >> Copy_PinInfo->Pin_Num) & 1);
                 if(Local_PinValue == DIO_HIGH || Local_PinValue == DIO_LOW)
                 {
                     *Copy_PinValue = Local_PinValue;
@@ -711,7 +716,7 @@ Std_ReturnType MCAL_DIO_ReadPinValue(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_VA
                 }
                 break;
             case DIO_PORTC:
-                Local_PinValue = (((*((volatile PORTC_t *)0xF82)).PORTC_REGISTER >> Copy_PinInfo->Pin_Num) & 1);
+                Local_PinValue = ((((*((volatile PORTC_t *)0xF82)).PORTC_REGISTER) >> Copy_PinInfo->Pin_Num) & 1);
                 if(Local_PinValue == DIO_HIGH || Local_PinValue == DIO_LOW)
                 {
                     *Copy_PinValue = Local_PinValue;
@@ -723,7 +728,7 @@ Std_ReturnType MCAL_DIO_ReadPinValue(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_VA
                 }
                 break;
             case DIO_PORTD:
-                Local_PinValue = (((*((volatile PORTD_t *)0xF83)).PORTD_REGISTER >> Copy_PinInfo->Pin_Num) & 1);
+                Local_PinValue = ((((*((volatile PORTD_t *)0xF83)).PORTD_REGISTER) >> Copy_PinInfo->Pin_Num) & 1);
                 if(Local_PinValue == DIO_HIGH || Local_PinValue == DIO_LOW)
                 {
                     *Copy_PinValue = Local_PinValue;
@@ -740,7 +745,7 @@ Std_ReturnType MCAL_DIO_ReadPinValue(const Pin_Conig_t *Copy_PinInfo, DIO_PIN_VA
                     Local_ErrorStatus = (Std_ReturnType)0x00;
                     break;
                 }
-                Local_PinValue = (((*((volatile PORTE_t *)0xF84)).PORTE_REGISTER >> Copy_PinInfo->Pin_Num) & 1);
+                Local_PinValue = ((((*((volatile PORTE_t *)0xF84)).PORTE_REGISTER) >> Copy_PinInfo->Pin_Num) & 1);
                 if(Local_PinValue == DIO_HIGH || Local_PinValue == DIO_LOW)
                 {
                     *Copy_PinValue = Local_PinValue;
@@ -770,22 +775,22 @@ Std_ReturnType MCAL_DIO_TogglePinValue(Pin_Conig_t *Copy_PinInfo)
         switch(Copy_PinInfo->PORT_ID)
         {
             case DIO_PORTA:
-                ((*((volatile LATA_t *)0xF89)).LATA_REGISTER ^= (1 << Copy_PinInfo->Pin_Num));
+                (((*((volatile LATA_t *)0xF89)).LATA_REGISTER) ^= (1 << Copy_PinInfo->Pin_Num));
                 Copy_PinInfo->Pin_Value = ~(Copy_PinInfo->Pin_Value);
                 Local_ErrorStatus = (Std_ReturnType)0x01;
                 break;
             case DIO_PORTB:
-                ((*((volatile LATB_t *)0xF8A)).LATB_REGISTER ^= (1 << Copy_PinInfo->Pin_Num));
+                (((*((volatile LATB_t *)0xF8A)).LATB_REGISTER) ^= (1 << Copy_PinInfo->Pin_Num));
                 Copy_PinInfo->Pin_Value = ~(Copy_PinInfo->Pin_Value);
                 Local_ErrorStatus = (Std_ReturnType)0x01;
                 break;
             case DIO_PORTC:
-                ((*((volatile LATC_t *)0xF8B)).LATC_REGISTER ^= (1 << Copy_PinInfo->Pin_Num));
+                (((*((volatile LATC_t *)0xF8B)).LATC_REGISTER) ^= (1 << Copy_PinInfo->Pin_Num));
                 Copy_PinInfo->Pin_Value = ~(Copy_PinInfo->Pin_Value);
                 Local_ErrorStatus = (Std_ReturnType)0x01;
                 break;
             case DIO_PORTD:
-                ((*((volatile LATD_t *)0xF8C)).LATD_REGISTER ^= (1 << Copy_PinInfo->Pin_Num));
+                (((*((volatile LATD_t *)0xF8C)).LATD_REGISTER) ^= (1 << Copy_PinInfo->Pin_Num));
                 Copy_PinInfo->Pin_Value = ~(Copy_PinInfo->Pin_Value);
                 Local_ErrorStatus = (Std_ReturnType)0x01;
                 break;
@@ -795,7 +800,7 @@ Std_ReturnType MCAL_DIO_TogglePinValue(Pin_Conig_t *Copy_PinInfo)
                     Local_ErrorStatus = (Std_ReturnType)0x00;
                     break;
                 }
-                ((*((volatile LATE_t *)0xF8D)).LATE_REGISTER ^= (1 << Copy_PinInfo->Pin_Num));
+                (((*((volatile LATE_t *)0xF8D)).LATE_REGISTER) ^= (1 << Copy_PinInfo->Pin_Num));
                 Copy_PinInfo->Pin_Value = ~(Copy_PinInfo->Pin_Value);
                 Local_ErrorStatus = (Std_ReturnType)0x01;
                 break;
@@ -819,6 +824,35 @@ Std_ReturnType MCAL_DIO_InitializePinOutput(const Pin_Conig_t *Copy_PinInfo)
         MCAL_DIO_SetPinDirection(Copy_PinInfo);
         MCAL_DIO_SetPinValue(Copy_PinInfo, DIO_LOW);
     }
+    return Local_ErrorStatus;
+}
+
+
+Std_ReturnType MCAL_DIO_PORTBWeakPullUpsInitStatus(uint8 Copy_PORTBPullUpStatus)
+{
+    Std_ReturnType Local_ErrorStatus = (Std_ReturnType)0x00;
+
+    if(Copy_PORTBPullUpStatus == 1)
+    {
+        (((*((volatile uint8 *)0xFF1))) &= (~(1 << 7)));
+        Local_ErrorStatus = (Std_ReturnType)0x01;
+    }
+    else if(Copy_PORTBPullUpStatus == 0)
+    {
+        (((*((volatile uint8 *)0xFF1))) |= (1 << 7));
+        Local_ErrorStatus = (Std_ReturnType)0x01;
+    }
+    else
+    {
+        Local_ErrorStatus = (Std_ReturnType)0x00;
+    }
+    return Local_ErrorStatus;
+}
+
+Std_ReturnType MCAL_DIO_PORTBEnablePinPullUp(DIO_PIN_t Copy_PinNum)
+{
+    Std_ReturnType Local_ErrorStatus = (Std_ReturnType)0x00;
+    (((*((volatile uint8 *)0xF7C))) |= (1 << Copy_PinNum));
     return Local_ErrorStatus;
 }
 

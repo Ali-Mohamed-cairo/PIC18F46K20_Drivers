@@ -452,6 +452,35 @@ Std_ReturnType MCAL_DIO_InitializePinOutput(const Pin_Conig_t *Copy_PinInfo)
     return Local_ErrorStatus;
 }
 
+
+Std_ReturnType MCAL_DIO_PORTBWeakPullUpsInitStatus(uint8 Copy_PORTBPullUpStatus)
+{
+    Std_ReturnType Local_ErrorStatus = E_NOT_OK;
+    //The RBPU bit is complemented which mean to set it we write 0 in it, and to clear we write 1 in it.
+    if(Copy_PORTBPullUpStatus == PORTB_ENABLE_PULL_UP)
+    {
+        CLEAR_BIT(PORTB_INTCON2_REG, INTOCN2_RBPU_BIT7);
+        Local_ErrorStatus = E_OK;
+    }
+    else if(Copy_PORTBPullUpStatus == PORTB_DISABLE_PULL_UP)
+    {
+        SET_BIT(PORTB_INTCON2_REG, INTOCN2_RBPU_BIT7);
+        Local_ErrorStatus = E_OK;
+    }
+    else
+    {
+        Local_ErrorStatus = E_NOT_OK;
+    }
+    return Local_ErrorStatus;
+}
+
+Std_ReturnType MCAL_DIO_PORTBEnablePinPullUp(DIO_PIN_t Copy_PinNum)
+{
+    Std_ReturnType Local_ErrorStatus = E_NOT_OK;
+    SET_BIT(WPUB_REG, Copy_PinNum);
+    return Local_ErrorStatus;
+}
+
 #endif /*APIs_CONFIG*/
 
 /*********************************Port APIs************************************/

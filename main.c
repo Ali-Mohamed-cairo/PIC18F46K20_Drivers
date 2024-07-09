@@ -16,7 +16,8 @@
 #include "HAL/LED/LED_Interface.h"
 #include "HAL/Push_Button/Push_Button_Interface.h"
 #include "HAL/KeyPad/KeyPad_Interface.h"
-
+#include "MCAL/Interrupt/Interrupt_Interface.h"
+#include "APP/ISRs.h"
 
 KeyPad_t key = {
     .KeyPad_Rows_Pins[0].Pin_Num = DIO_PIN0,
@@ -124,3 +125,5 @@ int main()
     
     return 0;
 }
+
+

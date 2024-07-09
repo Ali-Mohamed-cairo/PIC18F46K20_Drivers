@@ -5,7 +5,6 @@
  * Created on March 1, 2024, 6:25 PM
  
 */
-#include "Platform_Types.h"
 
 #include "Device_Config.h"
 
